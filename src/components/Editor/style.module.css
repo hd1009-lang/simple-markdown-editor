@@ -1,0 +1,79 @@
+.content code,
+.content kbd,
+.content samp {
+  background: rgba(0, 0, 0, 0.1);
+  color: inherit;
+  border-radius: 0.375rem;
+  max-width: 100%;
+  font-size: 90%;
+  padding: 0.1em 0.25em;
+  font-family: inherit !important;
+}
+.content pre {
+  font-family: inherit !important;
+}
+.content pre:has(code) {
+  background: #08090a;
+  color: #f8f8f2;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+}
+.content pre::before,
+.content pre::after,
+.content code::before,
+.content code::after,
+.content kbd::before,
+.content kbd::after,
+.content samp::before,
+.content samp::after {
+  position: relative;
+  content: "";
+}
+.content pre {
+  white-space: pre;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+.content a {
+  text-decoration: underline;
+  color: rgb(59, 73, 223);
+}
+.content img,
+.content video {
+  height: auto;
+  object-fit: contain;
+  display: block;
+  margin: 1.125rem auto;
+  max-width: 100%;
+  max-height: calc(50vh + 180px);
+  border-radius: 0.375rem;
+}
+.content table th {
+  background: #f5f5f5;
+  text-align: left;
+}
+.content table th,
+.content table td {
+  padding: 0.5rem;
+  border: 1px solid #d6d6d7;
+}
+.content h1,
+.content h2,
+.content h3,
+.content h4 {
+  scroll-margin-top: 70px;
+}
+.contentComment p,
+.contentComment h1,
+.contentComment h2,
+.contentComment h3,
+.contentComment h4 {
+  margin: 0;
+}
+.guides td, .guides th {
+  @apply text-base leading-[1.1875rem] font-normal;
+}
+.guides td {
+  @apply py-[3.75rem];
+}

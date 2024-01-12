@@ -132,7 +132,7 @@ const ToolbarMarkdown: React.FC<Props> = ({ editor }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editor]);
   return (
-    <div className="w-full flex items-center justify-start py-4 pl-24">
+    <div className="w-fit flex items-center justify-start py-4 pl-24">
       {toolbar.map((tool, idx) => {
         if (tool.name === "lineBreak") {
           return (

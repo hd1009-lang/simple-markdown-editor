@@ -9,12 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "classnames": "^2.5.1",
     "env-cmd": "^10.1.0",
+    "highlight.js": "^11.9.0",
+    "markdown-it": "^14.0.0",
     "next": "14.0.4",
     "react": "^18",
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.10",
+    "@types/markdown-it": "^13.0.7",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

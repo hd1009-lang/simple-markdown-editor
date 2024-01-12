@@ -1,6 +1,13 @@
-'use client'
+"use client";
 import React, { useEffect, useRef, useState } from "react";
 import ToolbarMarkdown from "@/components/Editor/toolbar";
+import markdownit from "markdown-it";
+import hljs from "highlight.js";
+import "highlight.js/styles/atom-one-dark.min.css";
+import MarkdownIt from "markdown-it";
+import styles from "@/components/Editor/style.module.css";
+import classNames from "classnames";
+import { PLACEHOLDER } from "@/utils/placeholder";
 interface Props {
   data?: string;
 }
@@ -23,7 +30,6 @@ const MarkdownEditor: React.FC<Props> = ({ data }) => {
       } else {
         countElementRef.current.innerText = "";
       }
-    
     }
   };
   useEffect(() => {
@@ -47,14 +53,66 @@ const MarkdownEditor: React.FC<Props> = ({ data }) => {
       setStatus("END");
     }
   }, []);
+  const [preview, setPreview] = useState<string>("");
   return (
     <>
-      {status === "END" && <ToolbarMarkdown editor={editorElmRef.current} />}
-      <div className="w-full h-full px-24 bg-gray-200 flex flex-col">
+      {status === "END" && (
+        <div className="flex justify-start items-center">
+          <ToolbarMarkdown editor={editorElmRef.current} />
+          <div
+            onClick={() => {
+              if (preview) {
+                setPreview("");
+                return;
+              }
+              if (editorElmRef.current && !preview) {
+                const md: MarkdownIt = markdownit({
+                  breaks: true,
+                  highlight: function (str, lang) {
+                    if (lang && hljs.getLanguage(lang)) {
+                      try {
+                        return hljs.highlight(str, { language: lang }).value;
+                      } catch (__) {}
+                    }
+
+                    return "";
+                  },
+                });
+                setPreview(md.render(editorElmRef.current.value));
+                return;
+              }
+            }}
+            className="cursor-pointer"
+          >
+            Preview
+          </div>
+        </div>
+      )}
+      <div className="w-full h-full px-24 bg-gray-200 flex flex-col relative">
+        <div
+          className={`absolute top-4 ${
+            preview ? " left-0 z-50 bg-white" : "-left-full -z-10"
+          }  w-full h-full`}
+        >
+          <div
+            className={classNames(
+              styles.content,
+              "overflow-auto w-full h-[calc(100%_-_70px)] px-24 bg-white"
+            )}
+          >
+            <div
+              className="prose"
+              dangerouslySetInnerHTML={{
+                __html: preview,
+              }}
+            ></div>
+          </div>
+        </div>
         <textarea
           ref={editorElmRef}
           className="mt-4 w-full h-[calc(100%_-_50px)] outline-none resize-none p-8 pb-5 text-black"
           onChange={handleWriteBlog}
+          defaultValue={PLACEHOLDER}
         />
         <div className="h-[50px] w-full bg-white flex justify-end pr-4 text-black text-xs leading-[1.125rem]">
           <span ref={countElementRef}></span>
